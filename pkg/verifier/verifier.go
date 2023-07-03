@@ -14,22 +14,20 @@ var ruleOperators = map[string]string{
 	"не":  "!",
 }  
 
-func Verify(doc *string, rule string) error {
+func Verify(doc *string, rule string) (bool, error) {
 	rule = evalRule(rule)
 
 	verified, err := verifyLine(*doc, rule)
 	if err != nil {
 		fmt.Println(err)
-		return err
+		return false, err
 	}
 
 	if !verified {
-		fmt.Println("НЕ СООТВЕТСТВИЕ")
+		return false, nil
 	} else {
-		fmt.Println("СООТВЕТСТВИЕ")
+		return true, nil
 	}
-
-	return nil
 }
 
 func evalRule(rule string) string {

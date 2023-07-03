@@ -7,7 +7,7 @@ import (
 	"github.com/Icarus-xD/DocRuleVerifier/pkg/verifier"
 )
 
-const RULE = "Hello и (Golang или Test) и Индия"
+const RULE = "Hello и (Golang или Test) и не Индия"
 const FILE = "test.txt"
 
 func main() {
@@ -17,5 +17,14 @@ func main() {
 	}
 	doc := string(b)
 
-	verifier.Verify(&doc, RULE)
+	verified, err := verifier.Verify(&doc, RULE)
+	if err != nil {
+		log.Fatal(err)
+	}
+
+	if verified {
+		log.Println("СООТВЕТСТВИЕ")
+	} else {
+		log.Println("НЕ СООТВЕТСТВИЕ")
+	}
 }
